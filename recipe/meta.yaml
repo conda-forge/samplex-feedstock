@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/samplex-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/samplex-{{ version }}.tar.gz
   sha256: 903112a33dbcab71d3f1c37a3cb81a4dd023aa126f35e43ca78a9660e2e7281c
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.9
+    - python {{ python_min }}
     - setuptools
     - wheel
     - pip
   run:
-    - python >=3.9
+    - python >={{ python_min }}
     - numpy
     - tqdm
     - mlx
@@ -33,6 +33,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/tedwards2412/samplex
